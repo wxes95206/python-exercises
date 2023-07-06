@@ -1,0 +1,79 @@
+1. 解釋看看你心中的「函式」是什麼？為什麼要使用「函式」？
+
+Ans:
+Python 的函式可以讓程式碼更容易管理、維護、擴展。在使用時只需叫出函式，無須再重複輸入相同的程式碼，可以簡化程式碼並增加可讀性。
+
+
+2. 試著說明以下程式的「執行順序」，執行的順序會長怎樣（盡可能地拆分為運算的最小單位）？
+def f(a, b):
+    if a > b:
+        return a
+    return b
+
+max = f(3, 5)
+max = f(6, f(3, 5))
+max = f(max, f(1, 2))
+
+Ans:
+首先定義一個包含參數a、b的函示f。此函式的運作為: 若a大於b則回傳a，若a未大於b則回傳b。
+令一個變數max等於參數a=3、b=5的f函式值，會得到5
+令一個變數max等於參數a=6、b= f(3, 5)的f函式值，因為a=6 >b= 5因此會得到6
+令一個變數max等於參數a=max、b= f(1,2)的f函式值，因為a=6 >b= 2因此會得到6
+
+3. 以下程式可以會傳 a, b 的最大值，如何改寫成可以接收 f(a, b), f(a, b, c), f(a, b, c, ...) 等不同個數輸入的最大值函式可以怎麼做？
+def f(a, b):
+    if a > b:
+        return a
+    return b
+
+f(3, 5) # O
+f(3, 4, 5) # X
+f(3, 4, 5, 6, 7) # X
+
+Ans:
+def f(*args):
+return max(*args)
+
+4. 請問下方程式碼會回傳什麼結果？
+a = 'A'
+def f(b):
+    a = 'AAA'
+    c = 'C'
+    print(a)
+    print(b)
+    print(c)
+    return b
+
+print(a)
+print(f('B'))
+print(a)
+
+Ans:
+#A
+#AAA
+ B
+ C
+ B
+#A
+
+5. 請問下方程式碼會回傳什麼結果？
+
+a = 'A'
+
+def f(b):
+    c = 'C'
+    print(a)
+    a = 'AAA'
+    print(b)
+    print(c)
+    return b
+
+print(a)
+print(f('B'))
+print(a)
+
+Ans:
+#A
+#UnboundLocalError: local variable 'a' referenced beforeassignment
+
+這是因為在函式f(b)的第一行輸出變數a的值時，Python首先會在函式內部尋找變數a，但在此時變數a尚未被定義，因此Python會出現錯誤
