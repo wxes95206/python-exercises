@@ -1,0 +1,34 @@
+#練習：定義一個計算質數的函數。
+
+❏ Requirements：
+
+1. 讓使用者輸入一個整數 n
+2. 請分別定義兩個 Function: isPrime(n) 回傳 n 是否為質數、primes(n) 回傳小於 n 質數
+❏ Sample Input： 20 ← 使用者輸入
+❏ Sample Output： 2, 3, 5, 7, 11, 13, 17, 19 ← 畫面輸出
+
+Ans:
+def is_Prime(n):
+  if n < 2:
+    return False
+  else:
+    for i in range(2,n+1):
+      if n%i ==0:
+        return False
+      return True
+      
+def primes(n):
+    result = []
+    if n > 1:
+        for i in range(2, n):
+            for j in range(2, i):
+                if i % j == 0:
+                    break
+            else:
+                result.append(i)
+        return result
+     
+n = int(input("請輸入一個整數："))    
+is_Prime(n)
+primes(n)
+print("比", n, "小的質數有:", primes(n)) #比 20 小的質數有:[2, 3, 5, 7, 11, 13, 17, 19]
